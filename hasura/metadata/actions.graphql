@@ -20,6 +20,10 @@ type Mutation {
   ): EmailVerifyOutput
 }
 
+type Query {
+  new_access_token: AccessToken
+}
+
 type Mutation {
   password_reset(
     data: PasswordResetInput!
@@ -34,10 +38,6 @@ type Mutation {
 
 type Query {
   refresh_revoke: RefreshRevokeOutput
-}
-
-type Query {
-  new_access_token: AccessToken
 }
 
 type Query {
