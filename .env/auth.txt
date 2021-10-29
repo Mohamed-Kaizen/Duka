@@ -1,0 +1,3 @@
+authjwt_secret_key=""
+EMAIL_USER=""
+EMAIL_PASSWORD=""

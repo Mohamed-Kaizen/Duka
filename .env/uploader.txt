@@ -1,0 +1,2 @@
+MINIO_ENDPOINT_URL=http://storage.localhost
+MINIO_CONTAINER_URL=http://storage:9000

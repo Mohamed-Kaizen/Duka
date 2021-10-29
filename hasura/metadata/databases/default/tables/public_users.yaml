@@ -1,0 +1,36 @@
+table:
+  name: users
+  schema: public
+update_permissions:
+- permission:
+    check:
+      _and:
+      - id:
+          _eq: X-Hasura-User-Id
+      - is_active:
+          _eq: true
+      - is_email_verified:
+          _eq: true
+    columns:
+    - full_name
+    - username
+    filter:
+      _and:
+      - id:
+          _eq: X-Hasura-User-Id
+      - is_active:
+          _eq: true
+      - is_email_verified:
+          _eq: true
+  role: user
+event_triggers:
+- definition:
+    enable_manual: false
+    insert:
+      columns: "*"
+  name: send_email_verification
+  retry_conf:
+    interval_sec: 10
+    num_retries: 0
+    timeout_sec: 60
+  webhook: http://auth:8000/send-email-verification

@@ -1,0 +1,145 @@
+version: '3.8'
+
+services:
+    reverse_proxy:
+      container_name: reverse_proxy
+      image: traefik:latest
+      restart: unless-stopped
+      ports:
+        - "80:80"
+        - "8080:8080"
+      volumes:
+        # - "./traefik.prod.toml:/etc/traefik/traefik.toml" # For Production use
+        - "./traefik.dev.toml:/etc/traefik/traefik.toml"
+        - "/var/run/docker.sock:/var/run/docker.sock:ro"
+        # - "./certificates:/certificates"
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.api.rule=Host(`dashboard.localhost`)"
+        - "traefik.http.routers.api.entrypoints=web"
+        - "traefik.http.routers.api.service=api@internal"
+        # - "traefik.http.routers.api.tls=true"
+        # - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+      networks:
+        - main
+        - private        
+    auth:
+      container_name: duka_auth
+      build: ./microservices/auth
+      # command: uvicorn auth.main:app --host 0.0.0.0  # For Production use only
+      command: uvicorn auth.main:app --reload --host 0.0.0.0
+      volumes:
+        - ./microservices/auth:/home/auth
+      env_file:
+        - ./.env/auth.env
+        - ./.env/hasura.env
+      expose:
+        - 8000
+      depends_on:
+        - redis_auth
+      networks:
+        - main
+        - private
+    uploader:
+      container_name: duka_uploader
+      build: ./microservices/file_uploader
+      # command: uvicorn file_uploader.main:app --host 0.0.0.0 --port 8001  # For Production use only
+      command: uvicorn file_uploader.main:app --reload --host 0.0.0.0 --port 8001
+      volumes:
+        - ./microservices/file_uploader:/home/file_uploader
+      env_file:
+        - ./.env/auth.env
+        - ./.env/hasura.env
+        - ./.env/storage.env
+        - ./.env/uploader.env
+      expose:
+        - 8001
+      depends_on:
+        - redis_auth
+      networks:
+        - main
+        - private
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.uploader.rule=Host(`uploader.localhost`)"
+        - "traefik.http.routers.uploader.entrypoints=web"
+        # - "traefik.http.routers.hasura_backend.tls=true"
+        # - "traefik.http.routers.hasura_backend.tls.certresolver=letsencrypt"
+    redis_auth:
+      container_name: redis_auth
+      image: "redis:alpine"
+      ports:
+        - "6379:6379"
+      volumes:
+        - "redis_data:/data"
+      networks:
+        - private
+    backend_db:
+      image: postgres:13-alpine
+      container_name: duka_db
+      restart: unless-stopped
+      volumes:
+        - hasura_ci_db_data:/var/lib/postgresql/data
+      expose:
+        - 5432
+      networks:
+        - private
+      env_file:
+        - ./.env/postgres.env
+    hasura_backend:
+      image: hasura/graphql-engine:latest
+      container_name: duka_backend
+      restart: unless-stopped
+      networks:
+        - main
+        - private
+      volumes:
+        - ./hasura/migrations:/hasura-migrations
+        - ./hasura/metadata:/hasura-metadata
+      expose:
+        - 8080
+      depends_on:
+        - backend_db
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.hasura_backend.rule=Host(`backend.localhost`)"
+        - "traefik.http.routers.hasura_backend.entrypoints=web"
+        # - "traefik.http.routers.hasura_backend.tls=true"
+        # - "traefik.http.routers.hasura_backend.tls.certresolver=letsencrypt"
+      env_file:
+        - ./.env/hasura.env
+    storage:
+      image: minio/minio:latest
+      container_name: duka_storage
+      command: server /data --console-address ":9001"
+      networks:
+        - main
+      volumes:
+        - ./media:/data
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.storage.rule=Host(`storage.localhost`)"
+        - "traefik.http.routers.storage.service=storage"
+        - "traefik.http.services.storage.loadbalancer.server.port=9000"
+        # - "traefik.http.routers.storage.tls=true"
+        # - "traefik.http.routers.storage.tls.certresolver=letsencrypt"
+        # minio Console
+        - "traefik.http.routers.storageui.rule=Host(`storageui.localhost`)"
+        - "traefik.http.routers.storageui.service=storageui"
+        - "traefik.http.services.storageui.loadbalancer.server.port=9001"
+        # - "traefik.http.routers.storageui.tls=true"
+        # - "traefik.http.routers.storageui.tls.certresolver=letsencrypt"
+
+      env_file:
+        - ./.env/storage.env
+
+
+volumes:
+  redis_data:
+  hasura_ci_db_data:
+
+networks:
+  main:
+    driver: bridge
+  private:
+    internal: true

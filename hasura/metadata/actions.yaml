@@ -1,0 +1,97 @@
+actions:
+- name: access_revoke
+  definition:
+    kind: ""
+    handler: http://auth:8000/access-revoke
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: change_email
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/change-email
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: change_password
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/change-password
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: email_verify
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/email-verify
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: password_reset
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/password-reset
+  permissions:
+  - role: anonymous
+- name: password_reset_confirm
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/password-reset-confirm
+  permissions:
+  - role: anonymous
+- name: refresh_revoke
+  definition:
+    kind: ""
+    handler: http://auth:8000/refresh-revoke
+    forward_client_headers: true
+  permissions:
+  - role: refresh_token
+- name: new_access_token
+  definition:
+    kind: ""
+    handler: http://auth:8000/refresh
+    forward_client_headers: true
+  permissions:
+  - role: refresh_token
+- name: resend_email_verification
+  definition:
+    kind: ""
+    handler: http://auth:8000/resend-email-verification
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: sign_in
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/sign-in
+  permissions:
+  - role: anonymous
+- name: signup
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/signup
+  permissions:
+  - role: anonymous
+custom_types:
+  enums: []
+  input_objects:
+  - name: SignupInput
+  - name: SignInInput
+  - name: ChangePasswordInput
+  - name: PasswordResetInput
+  - name: PasswordResetConfirmInput
+  - name: EmailVerifyInput
+  - name: ChangeEmailInput
+  objects:
+  - name: SignupOutput
+  - name: SignInOutput
+  - name: AccessToken
+  - name: RefreshRevokeOutput
+  - name: AccessRevokeOutput
+  - name: ChangePasswordOutput
+  - name: PasswordResetOutput
+  - name: PasswordResetConfirmOutput
+  - name: EmailVerifyOutput
+  - name: ChangeEmailOutput
+  - name: ResendEmailVerificationOutput
+  scalars: []

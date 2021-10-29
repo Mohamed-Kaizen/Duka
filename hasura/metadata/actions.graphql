@@ -1,0 +1,141 @@
+type Query {
+  access_revoke: AccessRevokeOutput
+}
+
+type Mutation {
+  change_email(
+    data: ChangeEmailInput!
+  ): ChangeEmailOutput
+}
+
+type Mutation {
+  change_password(
+    data: ChangePasswordInput!
+  ): ChangePasswordOutput
+}
+
+type Mutation {
+  email_verify(
+    data: EmailVerifyInput!
+  ): EmailVerifyOutput
+}
+
+type Mutation {
+  password_reset(
+    data: PasswordResetInput!
+  ): PasswordResetOutput
+}
+
+type Mutation {
+  password_reset_confirm(
+    data: PasswordResetConfirmInput!
+  ): PasswordResetConfirmOutput
+}
+
+type Query {
+  refresh_revoke: RefreshRevokeOutput
+}
+
+type Query {
+  new_access_token: AccessToken
+}
+
+type Query {
+  resend_email_verification: ResendEmailVerificationOutput
+}
+
+type Mutation {
+  sign_in(
+    data: SignInInput!
+  ): SignInOutput
+}
+
+type Mutation {
+  signup(
+    data: SignupInput!
+  ): SignupOutput
+}
+
+input SignupInput {
+  username: String!
+  email: String!
+  password: String!
+  full_name: String
+}
+
+input SignInInput {
+  username: String
+  email: String
+  password: String!
+}
+
+input ChangePasswordInput {
+  old_password: String!
+  new_password: String!
+  new_password_confirm: String!
+}
+
+input PasswordResetInput {
+  email: String!
+}
+
+input PasswordResetConfirmInput {
+  token: String!
+  email: String!
+  password: String!
+}
+
+input EmailVerifyInput {
+  token: String!
+}
+
+input ChangeEmailInput {
+  email: String!
+}
+
+type SignupOutput {
+  detail: String!
+}
+
+type SignInOutput {
+  access_token: String!
+  refresh_token: String!
+  token_type: String!
+}
+
+type AccessToken {
+  access_token: String!
+}
+
+type RefreshRevokeOutput {
+  detail: String!
+}
+
+type AccessRevokeOutput {
+  detail: String!
+}
+
+type ChangePasswordOutput {
+  detail: String!
+}
+
+type PasswordResetOutput {
+  detail: String!
+}
+
+type PasswordResetConfirmOutput {
+  detail: String!
+}
+
+type EmailVerifyOutput {
+  detail: String!
+}
+
+type ChangeEmailOutput {
+  detail: String!
+}
+
+type ResendEmailVerificationOutput {
+  detail: String!
+}
+
