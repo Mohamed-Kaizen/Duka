@@ -1,0 +1,3 @@
+table:
+  name: passenger
+  schema: public
