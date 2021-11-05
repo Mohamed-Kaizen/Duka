@@ -7,6 +7,8 @@
 - "!include public_passenger.yaml"
 - "!include public_payment_history.yaml"
 - "!include public_payment_method.yaml"
+- "!include public_pickup.yaml"
+- "!include public_pickup_ticket.yaml"
 - "!include public_route.yaml"
 - "!include public_seat.yaml"
 - "!include public_seat_status.yaml"
