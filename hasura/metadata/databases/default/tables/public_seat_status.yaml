@@ -1,0 +1,4 @@
+table:
+  name: seat_status
+  schema: public
+is_enum: true

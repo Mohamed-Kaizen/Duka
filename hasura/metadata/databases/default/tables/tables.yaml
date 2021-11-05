@@ -1,1 +1,7 @@
+- "!include public_notification_type.yaml"
+- "!include public_payment_method.yaml"
+- "!include public_seat_status.yaml"
+- "!include public_ticket_status.yaml"
 - "!include public_users.yaml"
+- "!include public_users_gender.yaml"
+- "!include public_users_role.yaml"
