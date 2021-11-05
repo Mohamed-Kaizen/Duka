@@ -38,6 +38,7 @@
 --   ('bus_admin', 'Privilege to control bus, driver, ticketer and trips within the organization'),
 --   ('ticketer', 'Privilege to create a ticket on the behave user within the organization'),
 --   ('operator', 'Privilege to create a ticket on the behave user with more payment options within the organization'),
+--   ('driver', 'Privilege to check on passengers within the bus'),
 --   ('user', 'The customer of the system'),
 --   ('manager', 'Privilege to access full information within the organization');
 --
