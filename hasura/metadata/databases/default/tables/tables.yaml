@@ -1,6 +1,8 @@
+- "!include public_address.yaml"
 - "!include public_notification.yaml"
 - "!include public_notification_type.yaml"
 - "!include public_payment_method.yaml"
+- "!include public_route.yaml"
 - "!include public_seat_status.yaml"
 - "!include public_ticket_status.yaml"
 - "!include public_users.yaml"
