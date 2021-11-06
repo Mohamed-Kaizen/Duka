@@ -1,3 +1,38 @@
 table:
   name: employ
   schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      organization:
+        _eq: X-Hasura-Organization-Id
+    columns:
+    - is_active
+    - user
+    set:
+      organization: x-hasura-Organization-Id
+  role: bus_admin
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - updated_at
+    - user
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: bus_admin
+update_permissions:
+- permission:
+    check:
+      organization:
+        _eq: X-Hasura-Organization-Id
+    columns:
+    - is_active
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: bus_admin

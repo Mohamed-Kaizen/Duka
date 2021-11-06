@@ -1,3 +1,11 @@
 table:
   name: pickup
   schema: public
+array_relationships:
+- name: pickup_tickets
+  using:
+    foreign_key_constraint_on:
+      column: pickup
+      table:
+        name: pickup_ticket
+        schema: public

@@ -1,3 +1,135 @@
 table:
   name: bus
   schema: public
+array_relationships:
+- name: seats
+  using:
+    foreign_key_constraint_on:
+      column: bus
+      table:
+        name: seat
+        schema: public
+- name: tickets
+  using:
+    foreign_key_constraint_on:
+      column: bus
+      table:
+        name: ticket
+        schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      organization:
+        _eq: X-Hasura-Organization-Id
+    columns:
+    - driver
+    - is_active
+    - licence_number
+    - total_seat
+    - trip
+    set:
+      organization: x-hasura-Organization-Id
+  role: bus_admin
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - driver
+    - id
+    - is_active
+    - licence_number
+    - organization
+    - total_seat
+    - trip
+    - updated_at
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - driver
+    - id
+    - is_active
+    - licence_number
+    - total_seat
+    - trip
+    - updated_at
+    filter:
+      _and:
+      - organization:
+          _eq: X-Hasura-Organization-Id
+      - driver:
+          _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    columns:
+    - created_at
+    - driver
+    - id
+    - is_active
+    - licence_number
+    - organization
+    - total_seat
+    - trip
+    - updated_at
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: manager
+- permission:
+    columns:
+    - created_at
+    - driver
+    - id
+    - is_active
+    - licence_number
+    - total_seat
+    - trip
+    - updated_at
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: operator
+- permission:
+    columns:
+    - created_at
+    - driver
+    - id
+    - is_active
+    - licence_number
+    - total_seat
+    - trip
+    - updated_at
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: ticketer
+- permission:
+    columns:
+    - created_at
+    - driver
+    - id
+    - is_active
+    - licence_number
+    - organization
+    - total_seat
+    - trip
+    - updated_at
+    filter: {}
+  role: user
+update_permissions:
+- permission:
+    check:
+      organization:
+        _eq: X-Hasura-Organization-Id
+    columns:
+    - driver
+    - is_active
+    - trip
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: bus_admin

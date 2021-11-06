@@ -1,3 +1,37 @@
 table:
   name: passenger
   schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    - ticket
+  role: operator
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    - ticket
+  role: ticketer
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    - ticket
+  role: user

@@ -1,3 +1,51 @@
 table:
   name: organization
   schema: public
+array_relationships:
+- name: buses
+  using:
+    foreign_key_constraint_on:
+      column: organization
+      table:
+        name: bus
+        schema: public
+- name: employs
+  using:
+    foreign_key_constraint_on:
+      column: organization
+      table:
+        name: employ
+        schema: public
+- name: trips
+  using:
+    foreign_key_constraint_on:
+      column: organization
+      table:
+        name: trip
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - email
+    - id
+    - is_active
+    - logo
+    - name
+    - phone_number
+    - updated_at
+    filter: {}
+  role: user
+update_permissions:
+- permission:
+    check:
+      id:
+        _eq: X-Hasura-Organization-Id
+    columns:
+    - email
+    - name
+    - phone_number
+    filter:
+      id:
+        _eq: X-Hasura-Organization-Id
+  role: manager

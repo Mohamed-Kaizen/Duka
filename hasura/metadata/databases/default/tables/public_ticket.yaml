@@ -1,3 +1,25 @@
 table:
   name: ticket
   schema: public
+array_relationships:
+- name: passengers
+  using:
+    foreign_key_constraint_on:
+      column: ticket
+      table:
+        name: passenger
+        schema: public
+- name: payment_histories
+  using:
+    foreign_key_constraint_on:
+      column: ticket
+      table:
+        name: payment_history
+        schema: public
+- name: pickup_tickets
+  using:
+    foreign_key_constraint_on:
+      column: ticket
+      table:
+        name: pickup_ticket
+        schema: public

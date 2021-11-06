@@ -1,3 +1,82 @@
 table:
   name: notification
   schema: public
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - description
+    - id
+    - object_id
+    - title
+    - type
+    - updated_at
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - description
+    - id
+    - object_id
+    - title
+    - type
+    - updated_at
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    columns:
+    - created_at
+    - description
+    - id
+    - object_id
+    - title
+    - type
+    - updated_at
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: manager
+- permission:
+    columns:
+    - created_at
+    - description
+    - id
+    - object_id
+    - title
+    - type
+    - updated_at
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: operator
+- permission:
+    columns:
+    - created_at
+    - description
+    - id
+    - object_id
+    - title
+    - type
+    - updated_at
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: ticketer
+- permission:
+    columns:
+    - created_at
+    - description
+    - id
+    - object_id
+    - title
+    - type
+    - updated_at
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: user
