@@ -1,3 +1,67 @@
 table:
   name: address
   schema: public
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - name
+    - updated_at
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - name
+    - updated_at
+    filter: {}
+  role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - name
+    - updated_at
+    filter: {}
+  role: driver
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - name
+    - updated_at
+    filter: {}
+  role: manager
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - name
+    - updated_at
+    filter: {}
+  role: operator
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - name
+    - updated_at
+    filter: {}
+  role: ticketer
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - name
+    - updated_at
+    filter: {}
+  role: user

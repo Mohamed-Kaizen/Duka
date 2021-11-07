@@ -1,6 +1,18 @@
 table:
   name: trip
   schema: public
+object_relationships:
+- name: organization_info
+  using:
+    foreign_key_constraint_on: organization
+array_relationships:
+- name: buses
+  using:
+    foreign_key_constraint_on:
+      column: trip
+      table:
+        name: bus
+        schema: public
 insert_permissions:
 - permission:
     backend_only: false
@@ -17,6 +29,19 @@ insert_permissions:
       organization: x-hasura-Organization-Id
   role: bus_admin
 select_permissions:
+- permission:
+    columns:
+    - arrival_time
+    - created_at
+    - departure_location
+    - departure_time
+    - id
+    - organization
+    - payment_deadline
+    - route
+    - updated_at
+    filter: {}
+  role: anonymous
 - permission:
     columns:
     - arrival_time
