@@ -34,9 +34,15 @@ async def graphql(*, query: str, variables: Optional[Dict] = None) -> httpx.Resp
         return r
 
 
-async def user_exists(*, username: str, email: str) -> bool:
+async def user_exists(*, username: str, phone_number: str) -> bool:
     """Checking if the user existed or not."""
-    r = await graphql(query=FIND_USER, variables={"email": email, "username": username})
+    r = await graphql(
+        query=FIND_USER,
+        variables={
+            "username": username,
+            "phone_number": phone_number,
+        },
+    )
     return len(r.json().get("data").get("users")) > 0
 
 
@@ -49,7 +55,7 @@ async def create_user(*, data: SignupData) -> bool:
     Returns:
         true if user has been created, otherwise false.
     """
-    if await user_exists(username=data.username, email=data.email):
+    if await user_exists(username=data.username, phone_number=data.phone_number):
         return False
 
     password = make_password_hash(password=data.password)
@@ -59,8 +65,11 @@ async def create_user(*, data: SignupData) -> bool:
         variables={
             "email": data.email,
             "username": data.username,
-            "full_name": data.full_name,
+            "first_name": data.first_name,
+            "last_name": data.last_name,
             "password": password,
+            "gender": data.gender,
+            "phone_number": data.phone_number,
             "last_login": f"{datetime.now()}",
         },
     )
@@ -78,16 +87,23 @@ async def authenticate(*, data: SignInData) -> Optional[UserModel]:
         user or None
     """
     r = await graphql(
-        query=FIND_USER, variables={"email": data.email, "username": data.username}
+        query=FIND_USER,
+        variables={
+            "username": data.username,
+            "phone_number": data.phone_number,
+        },
     )
 
     user_data = r.json().get("data").get("users")
+    print("^" * 50)
+    print(user_data)
 
     if len(user_data) == 0:
         return None
 
     user = UserModel(**user_data[0])
-
+    print("^" * 50)
+    print(user)
     if not verify_password(plain_password=data.password, hashed_password=user.password):
         return None
 

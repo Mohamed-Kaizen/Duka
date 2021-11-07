@@ -567,6 +567,14 @@ optional = false
 python-versions = ">=2.6"
 
 [[package]]
+name = "phonenumbers"
+version = "8.12.36"
+description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "platformdirs"
 version = "2.3.0"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -906,7 +914,7 @@ dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "135081bf525abb3761378a33fc01ab8f8105832a2aeef608d9824d9d89af7b96"
+content-hash = "34199e30e98b600cb98c067c21061b4321b20c1f51fd5b8ef98fab63920f1c8f"
 
 [metadata.files]
 anyio = [
@@ -1187,6 +1195,10 @@ pathspec = [
 pbr = [
     {file = "pbr-5.6.0-py2.py3-none-any.whl", hash = "sha256:c68c661ac5cc81058ac94247278eeda6d2e6aecb3e227b0387c30d277e7ef8d4"},
     {file = "pbr-5.6.0.tar.gz", hash = "sha256:42df03e7797b796625b1029c0400279c7c34fd7df24a7d7818a1abb5b38710dd"},
+]
+phonenumbers = [
+    {file = "phonenumbers-8.12.36-py2.py3-none-any.whl", hash = "sha256:fa91fff1cefee6873c78f08c767f341a7658c849ffb74b605cb38cefef0e76fa"},
+    {file = "phonenumbers-8.12.36.tar.gz", hash = "sha256:e29717fcf86d68082fc6e42ca07e52bff863b6e0b354edd1644ba15c35ef213d"},
 ]
 platformdirs = [
     {file = "platformdirs-2.3.0-py3-none-any.whl", hash = "sha256:8003ac87717ae2c7ee1ea5a84a1a61e87f3fbd16eb5aadba194ea30a9019f648"},

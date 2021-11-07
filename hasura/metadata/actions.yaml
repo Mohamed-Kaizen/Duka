@@ -73,7 +73,15 @@ actions:
   permissions:
   - role: anonymous
 custom_types:
-  enums: []
+  enums:
+  - name: Gender
+    values:
+    - description: null
+      is_deprecated: null
+      value: M
+    - description: null
+      is_deprecated: null
+      value: F
   input_objects:
   - name: SignupInput
   - name: SignInInput

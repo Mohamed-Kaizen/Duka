@@ -1,27 +1,30 @@
 """Collection of graphql schema."""
 
 FIND_USER = """
-query FindUser($email: String, $username: String) {
-  users(where: {_or: [{email: {_eq: $email}}, {username: {_eq: $username}}]}) {
+query FindUser($username: String, $phone_number: String) {
+  users(where: {_or: [{username: {_eq: $username}}, {phone_number: {_eq: $phone_number}}]}) {
     id
     email
     username
+    phone_number
+    role
+    employs {
+      organization
+    }
     password
     is_active
     is_email_verified
-    is_superuser
     last_login
   }
 }
 """
 
 CREATE_USER = """
-mutation CreateUser($email: String, $full_name: String, $password: String, $username: String, $last_login: timestamptz) {
-  insert_users_one(object: {email: $email, full_name: $full_name, password: $password, username: $username, last_login: $last_login}) { # noqa B950
+mutation CreateUser($email: String, $first_name: String, $gender: users_gender_enum, $password: String, $username: String, $last_name: String, $phone_number: String, $role: users_role_enum = user, $last_login: timestamptz) {
+  insert_users_one(object: {email: $email, first_name: $first_name, gender: $gender, password: $password, username: $username, last_name: $last_name, phone_number: $phone_number, role: $role, last_login: $last_login}) {
     id
   }
-}
-"""
+}"""
 
 GET_USER = """
 query GetUser($id: uuid = "%s") {

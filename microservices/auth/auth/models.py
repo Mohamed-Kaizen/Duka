@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Dict, Optional
 from uuid import UUID
 
+import phonenumbers
 from pydantic import BaseModel, EmailStr, Field, validator
 
 from . import pwned, validators
@@ -62,13 +63,21 @@ class UserModel(BaseModel):
 
     password: Optional[str] = None
 
-    full_name: Optional[str] = None
+    first_name: Optional[str] = None
+
+    last_name: Optional[str] = None
+
+    phone_number: Optional[str] = None
 
     picture_url: Optional[str] = None
 
-    is_active: Optional[bool] = None
+    role: Optional[str] = None
 
-    is_superuser: Optional[bool] = None
+    employs: Optional[list[dict]] = None
+
+    gender: Optional[str] = None
+
+    is_active: Optional[bool] = None
 
     is_email_verified: Optional[bool] = None
 
@@ -84,7 +93,7 @@ class SignupData(BaseModel):
 
     username: str
 
-    email: EmailStr
+    email: EmailStr = ""
 
     password: str = Field(
         ...,
@@ -92,7 +101,13 @@ class SignupData(BaseModel):
         max_length=SETTINGS.MAXIMUM_PASSWORD_LENGTH,
     )
 
-    full_name: Optional[str] = None
+    first_name: str
+
+    last_name: str
+
+    phone_number: str
+
+    gender: str
 
     @validator("username")
     def extra_validation_on_username(cls: "SignupData", value: str) -> str:  # noqa B902
@@ -139,7 +154,9 @@ class SignupData(BaseModel):
             return value
 
     @validator("email")
-    def extra_validation_on_email(cls: "SignupData", value: str) -> str:  # noqa B902
+    def extra_validation_on_email(
+        cls: "SignupData", value: Optional[str]  # noqa B902
+    ) -> str:
         """Extra Validation for the email.
 
         Args:
@@ -149,13 +166,43 @@ class SignupData(BaseModel):
         Returns:
             The email if it is valid.
         """
-        local_part, domain = value.split("@")
+        if value:
+            local_part, domain = value.split("@")
 
-        validators.validate_reserved_name(value=local_part, exception_class=ValueError)
+            validators.validate_reserved_name(
+                value=local_part, exception_class=ValueError
+            )
 
-        validators.validate_confusables_email(
-            domain=domain, local_part=local_part, exception_class=ValueError
-        )
+            validators.validate_confusables_email(
+                domain=domain, local_part=local_part, exception_class=ValueError
+            )
+
+        return value
+
+    @validator("phone_number")
+    def extra_validation_on_phone_number(
+        cls: "SignupData", value: str  # noqa B902
+    ) -> str:
+        """Extra Validation for the phone number.
+
+        Args:
+            cls: It the same as self # noqa: DAR102
+            value: The phone number value from an input.
+
+        Returns:
+            The phone number if it is valid.
+
+        Raises:
+            ValueError: If phone_number is invalid it return 422 status.
+        """
+        try:
+            phone_number = phonenumbers.parse(value, None)
+            if not phonenumbers.is_valid_number(
+                phone_number
+            ) or not phonenumbers.is_possible_number(phone_number):
+                raise ValueError("Invalid phone number")
+        except Exception as error:
+            raise ValueError(error)
 
         return value
 
@@ -177,7 +224,7 @@ class SignInData(BaseModel):
 
     username: str = ""
 
-    email: EmailStr = ""
+    phone_number: str = ""
 
     password: str
 

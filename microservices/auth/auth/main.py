@@ -98,15 +98,16 @@ async def sign_in(
             detail="Incorrect username or password",
         )
 
-    user_role = "admin" if user.is_superuser else "user"
+    organization_id = user.employs[0].get("organization") if user.employs else ""
 
     hasura_claims = {
         "https://hasura.io/jwt/claims": {
             "x-hasura-user-id": f"{user.id}",
-            "x-hasura-default-role": user_role,
-            "x-hasura-allowed-roles": [user_role],
+            "x-hasura-default-role": user.role,
+            "x-hasura-allowed-roles": [user.role],
             "x-hasura-is-active": f"{user.is_active}",
             "x-hasura-is-email-verified": f"{user.is_email_verified}",
+            "x-hasura-organization-id": organization_id,
         }
     }
 

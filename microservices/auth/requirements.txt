@@ -19,6 +19,7 @@ idna==3.2; python_full_version >= "3.6.2" and python_version >= "3.6"
 loguru==0.5.3; python_version >= "3.5"
 orjson==3.6.3; python_version >= "3.7"
 passlib==1.7.4
+phonenumbers==8.12.36
 pycparser==2.20; python_version >= "3.6" and python_full_version < "3.0.0" or python_version >= "3.6" and python_full_version >= "3.4.0"
 pydantic==1.8.2; python_full_version >= "3.6.1" and python_version >= "3.6"
 pyjwt==1.7.1; python_version >= "3.6"

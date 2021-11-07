@@ -56,17 +56,24 @@ type Mutation {
   ): SignupOutput
 }
 
+enum Gender {
+  M
+  F
+}
+
 input SignupInput {
   username: String!
-  email: String!
+  email: String
   password: String!
-  first_name: String
-  last_name: String
+  first_name: String!
+  last_name: String!
+  phone_number: String!
+  gender: Gender!
 }
 
 input SignInInput {
   username: String
-  email: String
+  phone_number: String
   password: String!
 }
 

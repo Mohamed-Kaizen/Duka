@@ -1,6 +1,35 @@
 table:
   name: users
   schema: public
+array_relationships:
+- name: buses
+  using:
+    foreign_key_constraint_on:
+      column: driver
+      table:
+        name: bus
+        schema: public
+- name: employs
+  using:
+    foreign_key_constraint_on:
+      column: user
+      table:
+        name: employ
+        schema: public
+- name: notifications
+  using:
+    foreign_key_constraint_on:
+      column: user
+      table:
+        name: notification
+        schema: public
+- name: tickets
+  using:
+    foreign_key_constraint_on:
+      column: customer
+      table:
+        name: ticket
+        schema: public
 update_permissions:
 - permission:
     check:
