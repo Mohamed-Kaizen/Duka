@@ -1,0 +1,4 @@
+table:
+  name: trip_bus_status
+  schema: public
+is_enum: true

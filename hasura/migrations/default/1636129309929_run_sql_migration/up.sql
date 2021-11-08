@@ -31,6 +31,12 @@ CREATE TABLE payment_method (
 );
 
 
+CREATE TABLE trip_bus_status (
+  value text PRIMARY KEY,
+  comment text
+);
+
+
 INSERT INTO users_role (value, comment) VALUES
   ('admin', 'Privilege to have full control of the system'),
   ('bus_admin', 'Privilege to control bus, driver, ticketer and trips within the organization'),
@@ -40,6 +46,12 @@ INSERT INTO users_role (value, comment) VALUES
   ('user', 'The customer of the system'),
   ('manager', 'Privilege to access full information within the organization');
 
+
+INSERT INTO trip_bus_status (value, comment) VALUES
+  ('In_progress', 'The trip either didnt start or still in the way'),
+  ('Done', 'The trip was successfully'),
+  ('Canceled_by_driver', 'The trip was canceled by the bus driver'),
+  ('Canceled_by_bus_admin', 'The trip was canceled by the bus admin');
 
 INSERT INTO users_gender (value, comment) VALUES
   ('F', 'Female'),

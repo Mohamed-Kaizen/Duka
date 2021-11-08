@@ -27,7 +27,6 @@ insert_permissions:
     - is_active
     - licence_number
     - total_seat
-    - trip
     set:
       organization: x-hasura-Organization-Id
   role: bus_admin
@@ -41,7 +40,6 @@ select_permissions:
     - licence_number
     - organization
     - total_seat
-    - trip
     - updated_at
     filter:
       organization:
@@ -55,7 +53,6 @@ select_permissions:
     - is_active
     - licence_number
     - total_seat
-    - trip
     - updated_at
     filter:
       _and:
@@ -73,7 +70,6 @@ select_permissions:
     - licence_number
     - organization
     - total_seat
-    - trip
     - updated_at
     filter:
       organization:
@@ -87,7 +83,6 @@ select_permissions:
     - is_active
     - licence_number
     - total_seat
-    - trip
     - updated_at
     filter:
       organization:
@@ -101,7 +96,6 @@ select_permissions:
     - is_active
     - licence_number
     - total_seat
-    - trip
     - updated_at
     filter:
       organization:
@@ -116,7 +110,6 @@ select_permissions:
     - licence_number
     - organization
     - total_seat
-    - trip
     - updated_at
     filter: {}
   role: user
@@ -128,7 +121,6 @@ update_permissions:
     columns:
     - driver
     - is_active
-    - trip
     filter:
       organization:
         _eq: X-Hasura-Organization-Id

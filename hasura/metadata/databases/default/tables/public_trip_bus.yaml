@@ -1,0 +1,3 @@
+table:
+  name: trip_bus
+  schema: public
