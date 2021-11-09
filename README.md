@@ -60,126 +60,126 @@ enjoy :)
 
 # TODO:
 
-[ ] Create the database Schema
+[X] Create the database Schema
 
-[ ] Add auth service
+[X] Add auth service
 
-    [ ] using username/phone_number and password
+    [X] using username/phone_number and password
 
 [ ] UseCase
 
-    [ ] Organization
+    [X] Organization
 
-        [ ] Admin site create an organization
+        [X] Admin site create an organization
         
-        [ ] Organization manager can update organization information
+        [X] Organization manager can update organization information
 
-        [ ] Anyone can see the basic organization information
+        [X] Anyone can see the basic organization information
         
     [ ] Pickup
 
-        [ ] Admin site create an pick up service
+        [X] Admin site create an pick up service
         
 
-        [ ] Customer/operator/ticketer can select pick up service if they want to
+        [X] Customer/operator/ticketer can select pick up service if they want to
 
     [ ] Notification
 
 
         [ ] System create the notification for events
         
-        [ ] User can see his own notification
+        [X] User can see his own notification
 
     [ ] PaymentHistory
 
         [ ] System create the payment history after a transaction has been made
 
-        [ ] Bus Admin and managers in organization can see all the payment history
+        [X] Bus Admin and managers in organization can see all the payment history
 
-    [ ] Passenger
+    [X] Passenger
 
-        [ ] Customer can create a passengers for a trip
+        [X] Customer can create a passengers for a trip
 
-        [ ] Operator or ticketer can create a passengers for a trip
+        [X] Operator or ticketer can create a passengers for a trip
 
-    [ ] Ticket
+    [X] Ticket
 
-        [ ] Customer can create a ticket for trip
+        [X] Customer can create a ticket for trip
 
-        [ ] Ticketer can create a ticket for trip with Cash as the only payment method
+        [X] Ticketer can create a ticket for trip with Cash as the only payment method
 
-        [ ] Operator can create a ticket for trip, the same as customer
+        [X] Operator can create a ticket for trip, the same as customer
 
-        [ ] Customer can see all ticket that he buy
+        [X] Customer can see all ticket that he buy
 
-        [ ] Ticketer can see all ticket that he created for a customer
+        [X] Ticketer can see all ticket that he created for a customer
 
-        [ ] Operator can see all ticket that he created for a customer
+        [X] Operator can see all ticket that he created for a customer
 
     [ ] Seat
 
         [ ] System create seats
 
-        [ ] Anyone can see list of seats per bus
+        [X] Anyone can see list of seats per bus
 
 
-    [ ] Trip
+    [X] Trip
 
 
-        [ ] Bus admin in organization create a trip
+        [X] Bus admin in organization create a trip
 
 
-        [ ] Customer/operator can see the trip basic information
+        [X] Customer/operator can see the trip basic information
 
-        [ ] Bus Admin can filter all trips within organization
+        [X] Bus Admin can filter all trips within organization
 
-        [ ] Ticketer can only see trips within organization
+        [X] Ticketer can only see trips within organization
 
-    [ ] Employ
+    [X] Employ
 
-        [ ] Managers/bus_admin can add Employ within organization
+        [X] Managers/bus_admin can add Employ within organization
 
-        [ ] Managers/bus_admin can see all employees within organization
+        [X] Managers/bus_admin can see all employees within organization
 
-        [ ] Managers/bus_admin can update employee status
+        [X] Managers/bus_admin can update employee status
 
-    [ ] Bus
+    [X] Bus
 
-        [ ] bus_admin create/update buses within organization
+        [X] bus_admin create/update buses within organization
 
-        [ ] Customer/operator can see all bus basic information for trip
+        [X] Customer/operator can see all bus basic information for trip
 
-        [ ] Ticketer can see all bus basic information for trip within organization
+        [X] Ticketer can see all bus basic information for trip within organization
 
-    [ ] Route
+    [X] Route
 
-        [ ] Admin site can  create/update
+        [X] Admin site can  create/update
 
-        [ ] Anyone can see all routes
+        [X] Anyone can see all routes
 
-    [ ] Address
+    [X] Address
 
-        [ ] Admin site can  create/update
+        [X] Admin site can  create/update
 
-        [ ] Anyone can see all address
+        [X] Anyone can see all address
 
     [ ] User
 
-    [ ] trip_bus
+    [X] trip_bus
 
-        [ ] Bus_admin see/create/update trip bus within organization
+        [X] Bus_admin see/create/update trip bus within organization
 
-        [ ] Driver can see all his trips 
+        [X] Driver can see all his trips 
 
-        [ ] Driver/bus_admin can change the status
+        [X] Driver/bus_admin can change the status
 
     [ ] trip_bus_seat
 
         [ ] System assign seats to trip bus with available status
 
-        [ ] Customer can book an available
+        [X] Customer can book an available
 
-        [ ] Driver can change a status of seat
+        [X] Driver can change a status of seat
 
         [ ] System can unbook a seat in case customer didn't pay before the payment dateline 
 
