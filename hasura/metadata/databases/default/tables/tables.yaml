@@ -18,6 +18,7 @@
 - "!include public_trip_bus.yaml"
 - "!include public_trip_bus_seat.yaml"
 - "!include public_trip_bus_status.yaml"
+- "!include public_trip_history.yaml"
 - "!include public_users.yaml"
 - "!include public_users_gender.yaml"
 - "!include public_users_role.yaml"
