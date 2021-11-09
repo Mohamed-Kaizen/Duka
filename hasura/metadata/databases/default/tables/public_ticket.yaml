@@ -1,6 +1,13 @@
 table:
   name: ticket
   schema: public
+object_relationships:
+- name: bus_info
+  using:
+    foreign_key_constraint_on: bus
+- name: trip_info
+  using:
+    foreign_key_constraint_on: trip
 array_relationships:
 - name: passengers
   using:
@@ -23,3 +30,143 @@ array_relationships:
       table:
         name: pickup_ticket
         schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - bus
+    - seat
+    - status
+    - total_passenger
+    - trip
+    set:
+      operator: x-hasura-User-Id
+  role: operator
+- permission:
+    backend_only: false
+    check:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+    columns:
+    - bus
+    - seat
+    - total_passenger
+    - trip
+    set:
+      ticketer: x-hasura-User-Id
+  role: ticketer
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - bus
+    - seat
+    - total_passenger
+    - trip
+    set:
+      customer: x-hasura-User-Id
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - total_passenger
+    - code
+    - seat
+    - status
+    - created_at
+    - updated_at
+    - bus
+    - customer
+    - id
+    - operator
+    - ticketer
+    - trip
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    columns:
+    - bus
+    - code
+    - created_at
+    - customer
+    - id
+    - seat
+    - status
+    - ticketer
+    - total_passenger
+    - trip
+    - updated_at
+    filter:
+      bus_info:
+        driver:
+          _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    columns:
+    - bus
+    - code
+    - created_at
+    - customer
+    - id
+    - operator
+    - seat
+    - status
+    - ticketer
+    - total_passenger
+    - trip
+    - updated_at
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: manager
+- permission:
+    columns:
+    - bus
+    - code
+    - created_at
+    - id
+    - seat
+    - status
+    - total_passenger
+    - trip
+    - updated_at
+    filter:
+      operator:
+        _eq: X-Hasura-User-Id
+  role: operator
+- permission:
+    columns:
+    - bus
+    - code
+    - created_at
+    - id
+    - seat
+    - status
+    - total_passenger
+    - trip
+    - updated_at
+    filter:
+      ticketer:
+        _eq: X-Hasura-User-Id
+  role: ticketer
+- permission:
+    columns:
+    - bus
+    - code
+    - created_at
+    - id
+    - seat
+    - status
+    - total_passenger
+    - trip
+    - updated_at
+    filter:
+      customer:
+        _eq: X-Hasura-User-Id
+  role: user

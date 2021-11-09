@@ -1,3 +1,124 @@
 table:
   name: trip_bus_seat
   schema: public
+object_relationships:
+- name: seat_info
+  using:
+    foreign_key_constraint_on: seat
+- name: trip_bus_info
+  using:
+    foreign_key_constraint_on: trip_bus
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - id
+    - seat
+    - status
+    - trip_bus
+    - updated_at
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - created_at
+    - id
+    - seat
+    - status
+    - trip_bus
+    - updated_at
+    filter:
+      _and:
+      - trip_bus_info:
+          trip_info:
+            organization:
+              _eq: X-Hasura-Organization-Id
+      - trip_bus_info:
+          bus_info:
+            driver:
+              _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    columns:
+    - created_at
+    - id
+    - seat
+    - status
+    - trip_bus
+    filter: {}
+  role: operator
+- permission:
+    columns:
+    - created_at
+    - id
+    - seat
+    - status
+    - trip_bus
+    - updated_at
+    filter:
+      trip_bus_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: ticketer
+- permission:
+    columns:
+    - created_at
+    - id
+    - seat
+    - status
+    - trip_bus
+    - updated_at
+    filter: {}
+  role: user
+update_permissions:
+- permission:
+    check:
+      _and:
+      - trip_bus_info:
+          trip_info:
+            organization:
+              _eq: X-Hasura-Organization-Id
+      - trip_bus_info:
+          bus_info:
+            driver:
+              _eq: X-Hasura-User-Id
+    columns:
+    - status
+    filter:
+      _and:
+      - trip_bus_info:
+          trip_info:
+            organization:
+              _eq: X-Hasura-Organization-Id
+      - trip_bus_info:
+          bus_info:
+            driver:
+              _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    check: {}
+    columns:
+    - status
+    filter: {}
+  role: operator
+- permission:
+    check:
+      trip_bus_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+    columns:
+    - status
+    filter:
+      trip_bus_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: ticketer
+- permission:
+    check: {}
+    columns:
+    - status
+    filter: {}
+  role: user

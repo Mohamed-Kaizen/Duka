@@ -5,6 +5,24 @@ object_relationships:
 - name: organization_info
   using:
     foreign_key_constraint_on: organization
+- name: route_info
+  using:
+    foreign_key_constraint_on: route
+array_relationships:
+- name: tickets
+  using:
+    foreign_key_constraint_on:
+      column: trip
+      table:
+        name: ticket
+        schema: public
+- name: trip_buses
+  using:
+    foreign_key_constraint_on:
+      column: trip
+      table:
+        name: trip_bus
+        schema: public
 insert_permissions:
 - permission:
     backend_only: false
@@ -41,6 +59,50 @@ select_permissions:
     - departure_location
     - departure_time
     - id
+    - organization
+    - payment_deadline
+    - route
+    - updated_at
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    columns:
+    - arrival_time
+    - created_at
+    - departure_location
+    - departure_time
+    - id
+    - organization
+    - payment_deadline
+    - route
+    - updated_at
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: manager
+- permission:
+    columns:
+    - arrival_time
+    - created_at
+    - departure_location
+    - departure_time
+    - id
+    - organization
+    - payment_deadline
+    - route
+    - updated_at
+    filter: {}
+  role: operator
+- permission:
+    columns:
+    - arrival_time
+    - created_at
+    - departure_location
+    - departure_time
+    - id
+    - organization
     - payment_deadline
     - route
     - updated_at

@@ -35,6 +35,75 @@ select_permissions:
     - phone_number
     - updated_at
     filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - created_at
+    - email
+    - id
+    - is_active
+    - logo
+    - name
+    - phone_number
+    - updated_at
+    filter: {}
+  role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - email
+    - id
+    - is_active
+    - logo
+    - name
+    - phone_number
+    - updated_at
+    filter: {}
+  role: driver
+- permission:
+    columns:
+    - created_at
+    - email
+    - id
+    - is_active
+    - logo
+    - name
+    - phone_number
+    - updated_at
+    filter: {}
+  role: manager
+- permission:
+    columns:
+    - created_at
+    - email
+    - id
+    - is_active
+    - logo
+    - name
+    - phone_number
+    - updated_at
+    filter: {}
+  role: operator
+- permission:
+    columns:
+    - email
+    - is_active
+    - logo
+    - name
+    - phone_number
+    filter: {}
+  role: ticketer
+- permission:
+    columns:
+    - created_at
+    - email
+    - id
+    - is_active
+    - logo
+    - name
+    - phone_number
+    - updated_at
+    filter: {}
   role: user
 update_permissions:
 - permission:

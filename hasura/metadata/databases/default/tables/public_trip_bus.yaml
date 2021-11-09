@@ -1,3 +1,149 @@
 table:
   name: trip_bus
   schema: public
+object_relationships:
+- name: bus_info
+  using:
+    foreign_key_constraint_on: bus
+- name: trip_info
+  using:
+    foreign_key_constraint_on: trip
+array_relationships:
+- name: trip_bus_seats
+  using:
+    foreign_key_constraint_on:
+      column: trip_bus
+      table:
+        name: trip_bus_seat
+        schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+    columns:
+    - bus
+    - trip
+  role: bus_admin
+select_permissions:
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - status
+    - trip
+    - updated_at
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - status
+    - trip
+    - updated_at
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - status
+    - trip
+    - updated_at
+    filter:
+      _and:
+      - trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+      - bus_info:
+          driver:
+            _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - status
+    - trip
+    - updated_at
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: manager
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - status
+    - trip
+    - updated_at
+    filter: {}
+  role: operator
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - status
+    - trip
+    - updated_at
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: ticketer
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - status
+    - trip
+    - updated_at
+    filter: {}
+  role: user
+update_permissions:
+- permission:
+    check:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+    columns:
+    - status
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    check:
+      _and:
+      - trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+      - bus_info:
+          driver:
+            _eq: X-Hasura-User-Id
+    columns:
+    - status
+    filter:
+      _and:
+      - trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+      - bus_info:
+          driver:
+            _eq: X-Hasura-User-Id
+  role: driver

@@ -1,6 +1,13 @@
 table:
   name: bus
   schema: public
+object_relationships:
+- name: driver_info
+  using:
+    foreign_key_constraint_on: driver
+- name: organization_info
+  using:
+    foreign_key_constraint_on: organization
 array_relationships:
 - name: seats
   using:
@@ -16,12 +23,17 @@ array_relationships:
       table:
         name: ticket
         schema: public
+- name: trip_buses
+  using:
+    foreign_key_constraint_on:
+      column: bus
+      table:
+        name: trip_bus
+        schema: public
 insert_permissions:
 - permission:
     backend_only: false
-    check:
-      organization:
-        _eq: X-Hasura-Organization-Id
+    check: {}
     columns:
     - driver
     - is_active
@@ -31,6 +43,18 @@ insert_permissions:
       organization: x-hasura-Organization-Id
   role: bus_admin
 select_permissions:
+- permission:
+    columns:
+    - created_at
+    - driver
+    - id
+    - is_active
+    - licence_number
+    - organization
+    - total_seat
+    - updated_at
+    filter: {}
+  role: anonymous
 - permission:
     columns:
     - created_at
@@ -52,6 +76,7 @@ select_permissions:
     - id
     - is_active
     - licence_number
+    - organization
     - total_seat
     - updated_at
     filter:
@@ -82,11 +107,10 @@ select_permissions:
     - id
     - is_active
     - licence_number
+    - organization
     - total_seat
     - updated_at
-    filter:
-      organization:
-        _eq: X-Hasura-Organization-Id
+    filter: {}
   role: operator
 - permission:
     columns:
@@ -95,6 +119,7 @@ select_permissions:
     - id
     - is_active
     - licence_number
+    - organization
     - total_seat
     - updated_at
     filter:

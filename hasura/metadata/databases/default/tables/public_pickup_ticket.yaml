@@ -1,3 +1,7 @@
 table:
   name: pickup_ticket
   schema: public
+object_relationships:
+- name: ticket_info
+  using:
+    foreign_key_constraint_on: ticket

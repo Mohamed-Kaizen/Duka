@@ -1,6 +1,10 @@
 table:
   name: passenger
   schema: public
+object_relationships:
+- name: ticket_info
+  using:
+    foreign_key_constraint_on: ticket
 insert_permissions:
 - permission:
     backend_only: false
@@ -34,4 +38,153 @@ insert_permissions:
     - last_name
     - phone_number
     - ticket
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - last_name
+    - phone_number
+    - ticket
+    - updated_at
+    filter:
+      ticket_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - last_name
+    - phone_number
+    - ticket
+    - updated_at
+    filter:
+      ticket_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: driver
+- permission:
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - last_name
+    - phone_number
+    - ticket
+    - updated_at
+    filter:
+      ticket_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: manager
+- permission:
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - last_name
+    - phone_number
+    - ticket
+    - updated_at
+    filter:
+      ticket_info:
+        operator:
+          _eq: X-Hasura-User-Id
+  role: operator
+- permission:
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - last_name
+    - phone_number
+    - ticket
+    - updated_at
+    filter:
+      ticket_info:
+        ticketer:
+          _eq: X-Hasura-User-Id
+  role: ticketer
+- permission:
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - last_name
+    - phone_number
+    - ticket
+    - updated_at
+    filter:
+      ticket_info:
+        customer:
+          _eq: X-Hasura-User-Id
+  role: user
+update_permissions:
+- permission:
+    check:
+      ticket_info:
+        operator:
+          _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    filter:
+      ticket_info:
+        operator:
+          _eq: X-Hasura-User-Id
+  role: operator
+- permission:
+    check:
+      ticket_info:
+        ticketer:
+          _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    filter:
+      ticket_info:
+        ticketer:
+          _eq: X-Hasura-User-Id
+  role: ticketer
+- permission:
+    check:
+      ticket_info:
+        customer:
+          _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    filter:
+      ticket_info:
+        customer:
+          _eq: X-Hasura-User-Id
   role: user

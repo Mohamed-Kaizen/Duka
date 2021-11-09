@@ -5,3 +5,75 @@ object_relationships:
 - name: ticket_info
   using:
     foreign_key_constraint_on: ticket
+select_permissions:
+- permission:
+    columns:
+    - created_at
+    - id
+    - method
+    - system_price
+    - ticket
+    - total_price
+    - updated_at
+    filter:
+      ticket_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - id
+    - method
+    - system_price
+    - ticket
+    - total_price
+    - updated_at
+    filter:
+      ticket_info:
+        trip_info:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: manager
+- permission:
+    columns:
+    - created_at
+    - id
+    - method
+    - system_price
+    - ticket
+    - total_price
+    - updated_at
+    filter:
+      ticket_info:
+        operator:
+          _eq: X-Hasura-User-Id
+  role: operator
+- permission:
+    columns:
+    - created_at
+    - id
+    - method
+    - system_price
+    - ticket
+    - total_price
+    - updated_at
+    filter:
+      ticket_info:
+        ticketer:
+          _eq: X-Hasura-User-Id
+  role: ticketer
+- permission:
+    columns:
+    - created_at
+    - id
+    - method
+    - ticket
+    - total_price
+    - updated_at
+    filter:
+      ticket_info:
+        customer:
+          _eq: X-Hasura-User-Id
+  role: user

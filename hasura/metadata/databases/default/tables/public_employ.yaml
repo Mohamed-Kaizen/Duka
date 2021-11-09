@@ -4,27 +4,47 @@ table:
 insert_permissions:
 - permission:
     backend_only: false
-    check:
-      organization:
-        _eq: X-Hasura-Organization-Id
+    check: {}
     columns:
     - is_active
     - user
     set:
       organization: x-hasura-Organization-Id
   role: bus_admin
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - is_active
+    - user
+    set:
+      organization: x-hasura-Organization-Id
+  role: manager
 select_permissions:
 - permission:
     columns:
     - created_at
     - id
     - is_active
+    - organization
     - updated_at
     - user
     filter:
       organization:
         _eq: X-Hasura-Organization-Id
   role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - id
+    - is_active
+    - organization
+    - updated_at
+    - user
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: manager
 update_permissions:
 - permission:
     check:
@@ -36,3 +56,13 @@ update_permissions:
       organization:
         _eq: X-Hasura-Organization-Id
   role: bus_admin
+- permission:
+    check:
+      organization:
+        _eq: X-Hasura-Organization-Id
+    columns:
+    - is_active
+    filter:
+      organization:
+        _eq: X-Hasura-Organization-Id
+  role: manager
