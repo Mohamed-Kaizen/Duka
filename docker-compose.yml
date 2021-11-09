@@ -65,6 +65,34 @@ services:
         - "traefik.http.routers.uploader.entrypoints=web"
         # - "traefik.http.routers.hasura_backend.tls=true"
         # - "traefik.http.routers.hasura_backend.tls.certresolver=letsencrypt"
+    utils:
+      container_name: duka_utils
+      build: ./microservices/utils
+      # command: uvicorn utils.main:app --host 0.0.0.0 --port 8002  # For Production use only
+      command: uvicorn utils.main:app --reload --host 0.0.0.0 --port 8002
+      volumes:
+        - ./microservices/utils:/home/utils
+      env_file:
+        - ./.env/auth.env
+        - ./.env/hasura.env
+        - ./.env/storage.env
+        - ./.env/uploader.env
+      networks:
+        - private
+    core:
+      container_name: duka_core
+      build: ./microservices/duka
+      # command: uvicorn duka.main:app --host 0.0.0.0 --port 8003  # For Production use only
+      command: uvicorn duka.main:app --reload --host 0.0.0.0 --port 8003
+      volumes:
+        - ./microservices/duka:/home/duka
+      env_file:
+        - ./.env/auth.env
+        - ./.env/hasura.env
+        - ./.env/storage.env
+        - ./.env/uploader.env
+      networks:
+        - private
     redis_auth:
       container_name: redis_auth
       image: "redis:alpine"
