@@ -46,7 +46,7 @@ async def user_exists(*, username: str, phone_number: str) -> bool:
     return len(r.json().get("data").get("users")) > 0
 
 
-async def create_user(*, data: SignupData) -> bool:
+async def create_user(*, data: SignupData, role: str = "user") -> bool:
     """Create new user.
 
     Args:
@@ -69,6 +69,7 @@ async def create_user(*, data: SignupData) -> bool:
             "last_name": data.last_name,
             "password": password,
             "gender": data.gender,
+            "role": role,
             "phone_number": data.phone_number,
             "last_login": f"{datetime.now()}",
         },

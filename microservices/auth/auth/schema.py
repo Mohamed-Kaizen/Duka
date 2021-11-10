@@ -20,7 +20,7 @@ query FindUser($username: String, $phone_number: String) {
 """
 
 CREATE_USER = """
-mutation CreateUser($email: String, $first_name: String, $gender: users_gender_enum, $password: String, $username: String, $last_name: String, $phone_number: String, $role: users_role_enum = user, $last_login: timestamptz) {
+mutation CreateUser($email: String, $first_name: String, $gender: users_gender_enum, $password: String, $username: String, $last_name: String, $phone_number: String, $role: users_role_enum, $last_login: timestamptz) {
   insert_users_one(object: {email: $email, first_name: $first_name, gender: $gender, password: $password, username: $username, last_name: $last_name, phone_number: $phone_number, role: $role, last_login: $last_login}) {
     id
   }
