@@ -75,3 +75,12 @@ mutation ChangeUserEmail($id: uuid = "%(user_id)s", $email: String = "%(email)s"
   }
 }
 """
+
+
+ADD_EMPLOY = """
+mutation AddEmploy($organization: uuid = "%(organization_id)s", $user: uuid = "%(user_id)s") {
+  insert_employ_one(object: {user: $user, organization: $organization}) {
+    id
+  }
+}
+"""

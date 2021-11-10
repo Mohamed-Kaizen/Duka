@@ -21,9 +21,11 @@ from .models import (
     SignIn,
     SignInOutput,
     Signup,
+    CreateManager,
 )
 from .schema import CHANGE_USER_EMAIL, FIND_USER, GET_USER
 from .services import (
+    add_employ,
     authenticate,
     change_password,
     confirm_password_reset,
@@ -78,7 +80,8 @@ def check_if_token_in_deny_list(
 @app.post("/signup/", response_class=ORJSONResponse)
 async def sign_up(user_input: Signup) -> Dict[str, str]:
     """Sign up new users."""
-    if not await create_user(data=user_input.input.data):
+    data = await create_user(data=user_input.input.data)
+    if not data:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "User already existed.")
     return {"detail": "user has been created"}
 
@@ -324,6 +327,72 @@ async def resend_email_verification(
     )
 
     return {"detail": "Email verify e-mail has been sent."}
+
+
+@app.post("/create-operator/", response_class=ORJSONResponse)
+async def create_operator(user_input: Signup) -> Dict[str, str]:
+    """Create new operator."""
+    data = await create_user(data=user_input.input.data, role="operator")
+    if not data:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Operator already existed.")
+    return {"detail": "Operator has been created"}
+
+
+@app.post("/create-manager/", response_class=ORJSONResponse)
+async def create_manager(user_input: CreateManager) -> Dict[str, str]:
+    """Create new manager."""
+    data = await create_user(data=user_input.input.data, role="manager")
+
+    if not data:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Manager already existed.")
+
+    user_id = data.get("resp").json().get("data").get("insert_users_one").get("id")
+
+    await add_employ(user_id=user_id, organization_id=user_input.input.data.organization)
+
+    return {"detail": "Manager has been created"}
+
+
+@app.post("/create-driver/", response_class=ORJSONResponse)
+async def create_driver(user_input: Signup, authorize: AuthJWT = Depends()) -> Dict[str, str]:
+    """Create new driver."""
+    authorize.jwt_required()
+
+    raw_jwt = authorize.get_raw_jwt()
+
+    organization_id = raw_jwt.get("https://hasura.io/jwt/claims").get("x-hasura-organization-id")
+
+    data = await create_user(data=user_input.input.data, role="driver")
+
+    if not data:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Driver already existed.")
+
+    user_id = data.get("resp").json().get("data").get("insert_users_one").get("id")
+
+    await add_employ(user_id=user_id, organization_id=organization_id)
+
+    return {"detail": "Driver has been created"}
+
+
+@app.post("/create-ticketer/", response_class=ORJSONResponse)
+async def create_ticketer(user_input: Signup, authorize: AuthJWT = Depends()) -> Dict[str, str]:
+    """Create new ticketer."""
+    authorize.jwt_required()
+
+    raw_jwt = authorize.get_raw_jwt()
+
+    organization_id = raw_jwt.get("https://hasura.io/jwt/claims").get("x-hasura-organization-id")
+
+    data = await create_user(data=user_input.input.data, role="ticketer")
+
+    if not data:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Ticketer already existed.")
+
+    user_id = data.get("resp").json().get("data").get("insert_users_one").get("id")
+
+    await add_employ(user_id=user_id, organization_id=organization_id)
+
+    return {"detail": "Ticketer has been created"}
 
 
 logging.getLogger().handlers = [InterceptHandler()]

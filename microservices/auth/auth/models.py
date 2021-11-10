@@ -422,3 +422,21 @@ class ChangeEmail(HasuraData):
     """Schema for change email."""
 
     input: ChangeEmailInput
+
+
+class CreateManagerData(SignupData):
+    """Schema for create manager data."""
+
+    organization: UUID
+
+
+class CreateManagerInput(BaseModel):
+    """Schema for create manager data."""
+
+    data: CreateManagerData
+
+
+class CreateManager(HasuraData):
+    """Schema for create manager schema."""
+
+    input: CreateManagerInput

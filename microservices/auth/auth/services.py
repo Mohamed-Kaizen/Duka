@@ -15,6 +15,7 @@ from .schema import (
     GET_USER,
     LAST_LOGIN,
     VERIFY_USER_EMAIL,
+    ADD_EMPLOY,
 )
 from .settings import SETTINGS
 from .utils import default_token_generator, make_password_hash, verify_password
@@ -46,7 +47,7 @@ async def user_exists(*, username: str, phone_number: str) -> bool:
     return len(r.json().get("data").get("users")) > 0
 
 
-async def create_user(*, data: SignupData, role: str = "user") -> bool:
+async def create_user(*, data: SignupData, role: str = "user") -> dict:
     """Create new user.
 
     Args:
@@ -60,7 +61,7 @@ async def create_user(*, data: SignupData, role: str = "user") -> bool:
 
     password = make_password_hash(password=data.password)
 
-    await graphql(
+    resp = await graphql(
         query=CREATE_USER,
         variables={
             "email": data.email,
@@ -75,7 +76,7 @@ async def create_user(*, data: SignupData, role: str = "user") -> bool:
         },
     )
 
-    return True
+    return {"created": True, "resp": resp}
 
 
 async def authenticate(*, data: SignInData) -> Optional[UserModel]:
@@ -294,3 +295,16 @@ async def update_last_login(*, user_id: str) -> None:
             "last_login": f"{datetime.now()}",
         }
     )
+
+
+async def add_employ(*, user_id: str, organization_id: str) -> None:
+    """Update user last login."""
+    await graphql(
+        query=ADD_EMPLOY
+        % {
+            "user_id": user_id,
+            "organization_id": organization_id,
+        }
+    )
+
+
