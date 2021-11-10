@@ -1,4 +1,4 @@
-CREATE TABLE "public"."address" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "name" text NOT NULL, "is_active" boolean NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "updated_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") );
+CREATE TABLE "public"."address" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "name" text NOT NULL, "is_active" boolean NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "updated_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") , UNIQUE ("name"));
 CREATE OR REPLACE FUNCTION "public"."set_current_timestamp_updated_at"()
 RETURNS TRIGGER AS $$
 DECLARE
