@@ -20,6 +20,35 @@ actions:
     forward_client_headers: true
   permissions:
   - role: user
+- name: create_bus_admin
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/create-bus-admin
+    forward_client_headers: true
+  permissions:
+  - role: manager
+- name: create_driver
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/create-driver
+    forward_client_headers: true
+  permissions:
+  - role: bus_admin
+- name: create_manager
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/create-manager
+- name: create_operator
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/create-operator
+- name: create_ticketer
+  definition:
+    kind: synchronous
+    handler: http://auth:8000/create-ticketer
+    forward_client_headers: true
+  permissions:
+  - role: bus_admin
 - name: email_verify
   definition:
     kind: synchronous
@@ -90,6 +119,11 @@ custom_types:
   - name: PasswordResetConfirmInput
   - name: EmailVerifyInput
   - name: ChangeEmailInput
+  - name: CreateManagerInput
+  - name: CreateBusAdminInput
+  - name: CreateDriverInput
+  - name: CreateTicketerInput
+  - name: CreateOperatorInput
   objects:
   - name: SignupOutput
   - name: SignInOutput
@@ -102,4 +136,9 @@ custom_types:
   - name: EmailVerifyOutput
   - name: ChangeEmailOutput
   - name: ResendEmailVerificationOutput
+  - name: CreateManagerOutput
+  - name: CreateBusAdminOutput
+  - name: CreateDriverOutput
+  - name: CreateTicketerOutput
+  - name: CreateOperatorOutput
   scalars: []

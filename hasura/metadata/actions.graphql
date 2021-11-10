@@ -15,6 +15,36 @@ type Mutation {
 }
 
 type Mutation {
+  create_bus_admin(
+    data: CreateBusAdminInput!
+  ): CreateBusAdminOutput
+}
+
+type Mutation {
+  create_driver(
+    data: CreateDriverInput!
+  ): CreateDriverOutput
+}
+
+type Mutation {
+  create_manager(
+    data: CreateManagerInput!
+  ): CreateManagerOutput
+}
+
+type Mutation {
+  create_operator(
+    data: CreateOperatorInput!
+  ): CreateOperatorOutput
+}
+
+type Mutation {
+  create_ticketer(
+    data: CreateTicketerInput!
+  ): CreateTicketerOutput
+}
+
+type Mutation {
   email_verify(
     data: EmailVerifyInput!
   ): EmailVerifyOutput
@@ -101,6 +131,57 @@ input ChangeEmailInput {
   email: String!
 }
 
+input CreateManagerInput {
+  username: String!
+  email: String
+  password: String!
+  first_name: String!
+  last_name: String!
+  phone_number: String!
+  gender: Gender!
+  organization: uuid!
+}
+
+input CreateBusAdminInput {
+  username: String!
+  email: String
+  password: String!
+  first_name: String!
+  last_name: String!
+  phone_number: String!
+  gender: Gender!
+}
+
+input CreateDriverInput {
+  username: String!
+  email: String
+  password: String!
+  first_name: String!
+  last_name: String!
+  phone_number: String!
+  gender: Gender!
+}
+
+input CreateTicketerInput {
+  username: String!
+  email: String
+  password: String!
+  first_name: String!
+  last_name: String!
+  phone_number: String!
+  gender: Gender!
+}
+
+input CreateOperatorInput {
+  username: String!
+  email: String
+  password: String!
+  first_name: String!
+  last_name: String!
+  phone_number: String!
+  gender: Gender!
+}
+
 type SignupOutput {
   detail: String!
 }
@@ -144,6 +225,26 @@ type ChangeEmailOutput {
 }
 
 type ResendEmailVerificationOutput {
+  detail: String!
+}
+
+type CreateManagerOutput {
+  detail: String!
+}
+
+type CreateBusAdminOutput {
+  detail: String!
+}
+
+type CreateDriverOutput {
+  detail: String!
+}
+
+type CreateTicketerOutput {
+  detail: String!
+}
+
+type CreateOperatorOutput {
   detail: String!
 }
 
