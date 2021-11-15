@@ -1,15 +1,15 @@
-"""Settings for Duka File Uploader Project."""
-from typing import List, Set
+"""Settings for Duka Core Project."""
+from typing import List
 
 from pydantic import BaseSettings
 
 
 class EnvSettings(BaseSettings):
-    """Base settings for Duka File Uploader."""
+    """Base settings for Duka Core."""
 
-    PROJECT_NAME: str = "Duka File Uploader"
+    PROJECT_NAME: str = "Duka Core"
 
-    PROJECT_DESCRIPTION: str = "A microservice that handle all file uploading for Duka project"
+    PROJECT_DESCRIPTION: str = "A microservice that has the main logic for Duka project"
 
     DOCS_URL: str = "/docs"
 
