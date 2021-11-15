@@ -1,5 +1,6 @@
 - "!include public_address.yaml"
 - "!include public_bus.yaml"
+- "!include public_bus_image.yaml"
 - "!include public_employ.yaml"
 - "!include public_notification.yaml"
 - "!include public_notification_type.yaml"

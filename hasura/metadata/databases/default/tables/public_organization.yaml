@@ -2,6 +2,13 @@ table:
   name: organization
   schema: public
 array_relationships:
+- name: bus_images
+  using:
+    foreign_key_constraint_on:
+      column: organization
+      table:
+        name: bus_image
+        schema: public
 - name: buses
   using:
     foreign_key_constraint_on:
