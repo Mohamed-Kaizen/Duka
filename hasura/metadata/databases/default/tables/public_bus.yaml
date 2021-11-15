@@ -150,3 +150,14 @@ update_permissions:
       organization:
         _eq: X-Hasura-Organization-Id
   role: bus_admin
+event_triggers:
+- definition:
+    enable_manual: false
+    insert:
+      columns: "*"
+  name: create_seat
+  retry_conf:
+    interval_sec: 10
+    num_retries: 0
+    timeout_sec: 60
+  webhook: http://core:8003/create-seat

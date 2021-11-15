@@ -23,6 +23,13 @@ array_relationships:
       table:
         name: trip_bus
         schema: public
+- name: trip_histories
+  using:
+    foreign_key_constraint_on:
+      column: trip
+      table:
+        name: trip_history
+        schema: public
 insert_permissions:
 - permission:
     backend_only: false

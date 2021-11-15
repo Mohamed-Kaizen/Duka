@@ -1,3 +1,52 @@
 table:
   name: trip_history
   schema: public
+object_relationships:
+- name: bus_info
+  using:
+    foreign_key_constraint_on: bus
+- name: trip_info
+  using:
+    foreign_key_constraint_on: trip
+- name: user_info
+  using:
+    foreign_key_constraint_on: driver
+select_permissions:
+- permission:
+    columns:
+    - id
+    - trip
+    - driver
+    - bus
+    - created_at
+    - updated_at
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    columns:
+    - created_at
+    - updated_at
+    - bus
+    - driver
+    - id
+    - trip
+    filter:
+      driver:
+        _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    columns:
+    - created_at
+    - updated_at
+    - bus
+    - driver
+    - id
+    - trip
+    filter:
+      trip_info:
+        organization:
+          _eq: X-Hasura-Organization-Id
+  role: manager

@@ -1,6 +1,13 @@
 table:
   name: employ
   schema: public
+object_relationships:
+- name: organization_info
+  using:
+    foreign_key_constraint_on: organization
+- name: user_info
+  using:
+    foreign_key_constraint_on: user
 insert_permissions:
 - permission:
     backend_only: false
