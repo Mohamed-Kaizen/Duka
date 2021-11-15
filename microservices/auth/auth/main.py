@@ -183,7 +183,7 @@ def access_revoke(authorize: AuthJWT = Depends()) -> Dict[str, str]:
     """Revoking the current users access token."""
     authorize.jwt_required()
     jti = authorize.get_raw_jwt()["jti"]
-    REDIS.setex(jti, SETTINGS.access_expires, "true")
+    REDIS.setex(jti, SETTINGS.authjwt_access_token_expires, "true")
     return {"detail": "Access token has been revoke"}
 
 
@@ -193,7 +193,7 @@ def refresh_revoke(authorize: AuthJWT = Depends()) -> Dict[str, str]:
     authorize.jwt_refresh_token_required()
 
     jti = authorize.get_raw_jwt()["jti"]
-    REDIS.setex(jti, SETTINGS.refresh_expires, "true")
+    REDIS.setex(jti, SETTINGS.authjwt_refresh_token_expires, "true")
 
     return {"detail": "Refresh token has been revoke"}
 

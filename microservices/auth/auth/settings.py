@@ -45,9 +45,9 @@ class EnvSettings(BaseSettings):
 
     authjwt_denylist_token_checks: Set[str] = {"access", "refresh"}
 
-    access_expires: timedelta = timedelta(minutes=15)
+    authjwt_access_token_expires: timedelta = timedelta(days=7)
 
-    refresh_expires: timedelta = timedelta(days=30)
+    authjwt_refresh_token_expires: timedelta = timedelta(days=30)
 
     PASSWORD_RESET_TIMEOUT: int = 259200
 
