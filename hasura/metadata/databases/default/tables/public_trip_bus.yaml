@@ -147,3 +147,24 @@ update_permissions:
           driver:
             _eq: X-Hasura-User-Id
   role: driver
+event_triggers:
+- definition:
+    enable_manual: false
+    insert:
+      columns: "*"
+  name: create_trip_bus_seat
+  retry_conf:
+    interval_sec: 10
+    num_retries: 0
+    timeout_sec: 60
+  webhook: http://core:8003/create-trip-bus-seat
+- definition:
+    enable_manual: false
+    insert:
+      columns: "*"
+  name: create_trip_history
+  retry_conf:
+    interval_sec: 10
+    num_retries: 0
+    timeout_sec: 60
+  webhook: http://core:8003/create-trip-history
