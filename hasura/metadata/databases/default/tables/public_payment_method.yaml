@@ -2,3 +2,16 @@ table:
   name: payment_method
   schema: public
 is_enum: true
+select_permissions:
+- permission:
+    columns:
+    - comment
+    - value
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - comment
+    - value
+    filter: {}
+  role: user

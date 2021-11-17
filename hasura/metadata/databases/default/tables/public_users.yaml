@@ -30,7 +30,223 @@ array_relationships:
       table:
         name: ticket
         schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - is_active
+    - is_email_verified
+    - last_login
+    - last_name
+    - phone_number
+    - picture_url
+    - role
+    - updated_at
+    - username
+    filter:
+      _or:
+      - id:
+          _eq: X-Hasura-User-Id
+      - employs:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    allow_aggregations: true
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - is_active
+    - is_email_verified
+    - last_login
+    - last_name
+    - phone_number
+    - picture_url
+    - updated_at
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    allow_aggregations: true
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - is_active
+    - is_email_verified
+    - last_login
+    - last_name
+    - phone_number
+    - picture_url
+    - role
+    - updated_at
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: manager
+- permission:
+    allow_aggregations: true
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - is_active
+    - is_email_verified
+    - last_login
+    - last_name
+    - phone_number
+    - picture_url
+    - role
+    - updated_at
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: operator
+- permission:
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - is_active
+    - is_email_verified
+    - last_login
+    - last_name
+    - phone_number
+    - picture_url
+    - role
+    - updated_at
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: ticketer
+- permission:
+    allow_aggregations: true
+    columns:
+    - created_at
+    - email
+    - first_name
+    - gender
+    - id
+    - is_active
+    - is_email_verified
+    - last_login
+    - last_name
+    - phone_number
+    - picture_url
+    - role
+    - updated_at
+    - username
+    filter:
+      _and:
+      - id:
+          _eq: X-Hasura-User-Id
+      - is_active:
+          _eq: true
+  role: user
 update_permissions:
+- permission:
+    check:
+      _or:
+      - id:
+          _eq: X-Hasura-User-Id
+      - employs:
+          organization:
+            _eq: X-Hasura-Organization-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - is_active
+    - last_name
+    - phone_number
+    - username
+    filter:
+      _or:
+      - id:
+          _eq: X-Hasura-User-Id
+      - employs:
+          organization:
+            _eq: X-Hasura-Organization-Id
+  role: bus_admin
+- permission:
+    check:
+      id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: driver
+- permission:
+    check:
+      id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: manager
+- permission:
+    check:
+      id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: operator
+- permission:
+    check:
+      id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - email
+    - first_name
+    - gender
+    - last_name
+    - phone_number
+    - username
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: ticketer
 - permission:
     check:
       _and:

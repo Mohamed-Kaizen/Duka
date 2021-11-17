@@ -33,6 +33,7 @@ array_relationships:
 select_permissions:
 - permission:
     columns:
+    - address
     - created_at
     - email
     - id
@@ -45,6 +46,7 @@ select_permissions:
   role: anonymous
 - permission:
     columns:
+    - address
     - created_at
     - email
     - id
@@ -57,6 +59,7 @@ select_permissions:
   role: bus_admin
 - permission:
     columns:
+    - address
     - created_at
     - email
     - id
@@ -69,6 +72,7 @@ select_permissions:
   role: driver
 - permission:
     columns:
+    - address
     - created_at
     - email
     - id
@@ -81,6 +85,7 @@ select_permissions:
   role: manager
 - permission:
     columns:
+    - address
     - created_at
     - email
     - id
@@ -93,23 +98,28 @@ select_permissions:
   role: operator
 - permission:
     columns:
-    - email
     - is_active
+    - address
+    - email
     - logo
     - name
     - phone_number
+    - created_at
+    - updated_at
+    - id
     filter: {}
   role: ticketer
 - permission:
     columns:
-    - created_at
-    - email
-    - id
     - is_active
+    - address
+    - email
     - logo
     - name
     - phone_number
+    - created_at
     - updated_at
+    - id
     filter: {}
   role: user
 update_permissions:
@@ -118,6 +128,7 @@ update_permissions:
       id:
         _eq: X-Hasura-Organization-Id
     columns:
+    - address
     - email
     - name
     - phone_number

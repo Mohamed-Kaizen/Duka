@@ -10,6 +10,7 @@ object_relationships:
     foreign_key_constraint_on: trip_bus
 select_permissions:
 - permission:
+    allow_aggregations: true
     columns:
     - created_at
     - id
@@ -62,6 +63,7 @@ select_permissions:
             _eq: X-Hasura-Organization-Id
   role: ticketer
 - permission:
+    allow_aggregations: true
     columns:
     - created_at
     - id

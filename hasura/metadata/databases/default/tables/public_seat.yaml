@@ -1,3 +1,22 @@
 table:
   name: seat
   schema: public
+select_permissions:
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - name
+    - updated_at
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - bus
+    - created_at
+    - id
+    - name
+    - updated_at
+    filter: {}
+  role: user

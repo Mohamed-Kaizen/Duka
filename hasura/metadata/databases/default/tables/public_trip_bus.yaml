@@ -29,6 +29,7 @@ insert_permissions:
   role: bus_admin
 select_permissions:
 - permission:
+    allow_aggregations: true
     columns:
     - bus
     - created_at
@@ -105,6 +106,7 @@ select_permissions:
           _eq: X-Hasura-Organization-Id
   role: ticketer
 - permission:
+    allow_aggregations: true
     columns:
     - bus
     - created_at

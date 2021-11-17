@@ -3,6 +3,7 @@ table:
   schema: public
 select_permissions:
 - permission:
+    allow_aggregations: true
     columns:
     - created_at
     - id
@@ -57,6 +58,7 @@ select_permissions:
     filter: {}
   role: ticketer
 - permission:
+    allow_aggregations: true
     columns:
     - created_at
     - id
