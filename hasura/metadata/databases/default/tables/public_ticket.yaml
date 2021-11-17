@@ -5,6 +5,9 @@ object_relationships:
 - name: bus_info
   using:
     foreign_key_constraint_on: bus
+- name: seat_info
+  using:
+    foreign_key_constraint_on: seat
 - name: trip_info
   using:
     foreign_key_constraint_on: trip
