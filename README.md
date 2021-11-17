@@ -116,9 +116,9 @@ enjoy :)
 
         [X] Operator can see all ticket that he created for a customer
 
-    [ ] Seat
+    [X] Seat
 
-        [ ] System create seats
+        [X] System create seats
 
         [X] Anyone can see list of seats per bus
 
@@ -175,7 +175,7 @@ enjoy :)
 
     [ ] trip_bus_seat
 
-        [ ] System assign seats to trip bus with available status
+        [X] System assign seats to trip bus with available status
 
         [X] Customer can book an available
 
@@ -186,13 +186,11 @@ enjoy :)
 
 [ ] Duka service
 
-    [ ] Notification Endpoint
-
     [ ] Ticket Endpoint
 
-    [ ] Seat creation Endpoint
+    [X] Seat creation Endpoint
 
-    [ ] trip_bus_seat creation Endpoint
+    [X] trip_bus_seat creation Endpoint
 
     [ ] trip_bus_seat unbook Endpoint
 
@@ -203,6 +201,8 @@ enjoy :)
     [ ] Ticket code generation Endpoint
 
     [ ] payment Endpoint
+
+    [ ] Notification Endpoint
 
 
 

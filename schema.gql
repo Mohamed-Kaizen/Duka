@@ -1,0 +1,281 @@
+# Create an Organization
+mutation CreateOrganization($email: String!, $name: String!, $phone_number: String!) {
+  insert_organization_one(object: {email: $email, name: $name, phone_number: $phone_number}) {
+    email
+    id
+    is_active
+    logo
+    name
+    phone_number
+    updated_at
+    created_at
+  }
+}
+
+
+# Update an Organization
+mutation UpdateOrganization($_eq: uuid!, $name: String!, $phone_number: String!, $email: String!) {
+  update_organization(_set: {name: $name, phone_number: $phone_number, email: $email}, where: {id: {_eq: $_eq}}) {
+    affected_rows
+    returning {
+      name
+      phone_number
+      email
+    }
+  }
+}
+
+
+# Get all Organizations
+query GettingAllOrganizations{
+  organization {
+    id
+    name
+    email
+    phone_number
+    logo
+    is_active
+    created_at
+    updated_at
+  }
+}
+
+
+# Get an Organization
+query GetOrganization($id: uuid!) {
+  organization_by_pk(id: $id){
+    id
+    name
+    email
+    phone_number
+    logo
+    is_active
+    created_at
+    updated_at
+  }
+}
+
+
+# Create a Pickup
+mutation CreatePickup($name: String!, $price: numeric!) {
+  insert_pickup_one(object: {name: $name, price: $price}) {
+    id
+    name
+    price
+    is_active
+    updated_at
+    created_at
+  }
+}
+
+# Get all active Pickups
+query GetAllActivePickups {
+  pickup(where: {is_active: {_eq: true}}) {
+    id
+    name
+    price
+    is_active
+    updated_at
+    created_at
+  }
+}
+
+# Get all notifications for a user
+query GetMyNotifications {
+  notification {
+    id
+    title
+    description
+    type
+    object_id
+    created_at
+    updated_at
+  }
+}
+
+# Get all payment history
+query GetAllPaymentHistory {
+  payment_history {
+    id
+    total_price
+    system_price
+    method
+    ticket
+    created_at
+    updated_at
+  }
+}
+
+# Get a payment history
+query GetPaymentHistory($id: uuid!) {
+  payment_history_by_pk(id: $id) {
+    id
+    total_price
+    system_price
+    method
+    ticket
+    created_at
+    updated_at
+  }
+}
+
+
+# Create a passenger
+mutation CreatePassenger($first_name: String!, $last_name: String!, $email: String, $gender: users_gender_enum!, $phone_number: String!, $ticket: uuid!) {
+  insert_passenger_one(object: {first_name: $first_name, last_name: $last_name, email: $email, phone_number: $phone_number, ticket: $ticket, gender: $gender}) {
+    id
+    first_name
+    last_name
+    email
+    gender
+    phone_number
+    ticket
+    created_at
+    updated_at
+  }
+}
+
+
+# Create bus
+mutation CreateBus($driver: uuid!, $licence_number: String!, $total_seat: Int!) {
+  insert_bus_one(object: {driver: $driver, licence_number: $licence_number, total_seat: $total_seat}) {
+    id
+    licence_number
+    total_seat
+    is_active
+    organization
+    driver
+    created_at
+    updated_at
+  }
+}
+
+
+# Create Address
+mutation CreateAddress($name: String!) {
+  insert_address_one(object: {name: $name}) {
+    id
+    name
+  }
+}
+
+# Create Route
+mutation CreateRoute($from: uuid!, $to: uuid!, $price: numeric!, $distance: String) {
+  insert_route_one(object: {from: $from, to: $to, price: $price, distance: $distance}) {
+    id
+  }
+}
+
+
+# Get all active Address
+query GetAllAddress($_eq: Boolean = true) {
+  address(where: {is_active: {_eq: $_eq}}) {
+    id
+    name
+    is_active
+    created_at
+    updated_at
+  }
+}
+
+
+# Filter a trip with given departure dates
+query FilterTripWithDateRange($gte_date: timestamptz!, $lte_date: timestamptz!, $status: trip_bus_status_enum = In_progress, $from_address: uuid!, $to_address: uuid!) {
+  route(where: {from: {_eq: $from_address}, to: {_eq: $to_address}}) {
+    id
+    distance
+    price
+    trips(where: {departure_time: {_gte: $gte_date, _lte: $lte_date}}) {
+      arrival_time
+      departure_location
+      departure_time
+      organization_info {
+        name
+        logo
+      }
+      trip_buses(where: {status: {_eq: $status}}) {
+        id
+        bus
+        trip_bus_seats_aggregate {
+          nodes {
+            status
+          }
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+  }
+}
+
+
+# Filter a trip with Exact departure date
+query FilterTripWithExactDate($status: trip_bus_status_enum = In_progress, $from_address: uuid!, $to_address: uuid!, $departure_time: timestamptz!) {
+  route(where: {from: {_eq: $from_address}, to: {_eq: $to_address}}) {
+    id
+    distance
+    price
+    trips(where: {departure_time: {_eq: $departure_time}}) {
+      arrival_time
+      departure_location
+      departure_time
+      organization_info {
+        name
+        logo
+      }
+      trip_buses(where: {status: {_eq: $status}}) {
+        id
+        bus
+        trip_bus_seats_aggregate {
+          nodes {
+            status
+          }
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+# Get All Seat for trip Bus
+query GetAllSeatForTripBus($trip_bus: uuid!) {
+  trip_bus_seat(where: {trip_bus: {_eq: $trip_bus}}) {
+    id
+    seat_info {
+      name
+    }
+    status
+    created_at
+    updated_at
+
+  }
+}
+
+
+# Get All Seat for trip Bus At Real Time
+subscription RealTimeAllSeatForTripBus($trip_bus: uuid!) {
+  trip_bus_seat(where: {trip_bus: {_eq: $trip_bus}}) {
+    id
+    seat_info {
+      name
+    }
+    status
+    created_at
+    updated_at
+
+  }
+}
+
+
+# Get all payment method in the system
+query GetAllPaymentMethod {
+  payment_method {
+    value
+    comment
+  }
+}
