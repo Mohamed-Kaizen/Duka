@@ -91,6 +91,8 @@ services:
         - ./.env/hasura.env
         - ./.env/storage.env
         - ./.env/uploader.env
+      depends_on:
+        - redis_auth
       networks:
         - private
     redis_auth:

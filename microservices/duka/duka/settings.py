@@ -1,7 +1,8 @@
 """Settings for Duka Core Project."""
-from typing import List
+from typing import List, Set
 
 from pydantic import BaseSettings
+from redis import Redis
 
 
 class EnvSettings(BaseSettings):
@@ -33,5 +34,13 @@ class EnvSettings(BaseSettings):
 
     HASURA_ENDPOINT_URL: str
 
+    authjwt_secret_key: str
+
+    authjwt_denylist_enabled: bool = True
+
+    authjwt_denylist_token_checks: Set[str] = {"access", "refresh"}
+
 
 SETTINGS = EnvSettings()
+
+REDIS = Redis(host="redis_auth", port=6379, db=0, decode_responses=True)
