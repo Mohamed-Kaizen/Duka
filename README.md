@@ -76,7 +76,7 @@ enjoy :)
 
         [X] Anyone can see the basic organization information
         
-    [ ] Pickup
+    [X] Pickup
 
         [X] Admin site create an pick up service
         
@@ -90,9 +90,9 @@ enjoy :)
         
         [X] User can see his own notification
 
-    [ ] PaymentHistory
+    [X] PaymentHistory
 
-        [ ] System create the payment history after a transaction has been made
+        [X] System create the payment history after a transaction has been made
 
         [X] Bus Admin and managers in organization can see all the payment history
 
@@ -186,7 +186,7 @@ enjoy :)
 
 [ ] Duka service
 
-    [ ] Ticket Endpoint
+    [X] Ticket Endpoint
 
     [X] Seat creation Endpoint
 
@@ -198,8 +198,6 @@ enjoy :)
 
 [ ] Utils service
 
-    [ ] Ticket code generation Endpoint
-
     [ ] payment Endpoint
 
     [ ] Notification Endpoint
@@ -207,7 +205,7 @@ enjoy :)
 
 
 
-[ ] Add Fake data
+[X] Add Fake data
 
 
 [ ] Testing the API's
