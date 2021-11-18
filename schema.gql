@@ -120,21 +120,6 @@ query GetPaymentHistory($id: uuid!) {
 }
 
 
-# Create a passenger
-mutation CreatePassenger($first_name: String!, $last_name: String!, $email: String, $gender: users_gender_enum!, $phone_number: String!, $ticket: uuid!) {
-  insert_passenger_one(object: {first_name: $first_name, last_name: $last_name, email: $email, phone_number: $phone_number, ticket: $ticket, gender: $gender}) {
-    id
-    first_name
-    last_name
-    email
-    gender
-    phone_number
-    ticket
-    created_at
-    updated_at
-  }
-}
-
 
 # Create bus
 mutation CreateBus($driver: uuid!, $licence_number: String!, $total_seat: Int!) {
@@ -278,4 +263,208 @@ query GetAllPaymentMethod {
     value
     comment
   }
+}
+
+
+# Get Tickets
+query GetTickets {
+  ticket {
+    id
+    code
+    status
+    trip_info {
+      arrival_time
+      departure_location
+      departure_time
+      organization_info {
+        name
+      }
+    }
+    seat_info {
+      seat_info {
+        name
+      }
+    }
+    bus_info {
+      licence_number
+    }
+    passengers {
+      first_name
+      last_name
+      phone_number
+    }
+  }
+}
+
+
+# Get all bus trip info
+query GetAllBusTripInfo {
+  bus {
+    licence_number
+    trip_buses {
+      status
+      trip_info {
+        departure_location
+        route_info {
+          from_address_info {
+            name
+          }
+          to_address_info {
+            name
+          }
+          price
+        }
+      }
+    }
+  }
+}
+
+
+# Get all travellers info
+query TravellersInfo {
+  ticket {
+    id
+    code
+    status
+    passengers {
+      first_name
+      last_name
+      phone_number
+    }
+    trip_info {
+      arrival_time
+      departure_time
+      route_info {
+        from_address_info {
+          name
+        }
+        to_address_info {
+          name
+        }
+      }
+    }
+    payment_histories {
+      method
+    }
+  }
+}
+
+
+
+# Get All Drivers
+query GetAllDrivers($_eq: users_role_enum = driver) {
+  users(where: {role: {_eq: $_eq}}) {
+    id
+    username
+    first_name
+    last_name
+    phone_number
+    is_active
+    buses {
+      licence_number
+    }
+  }
+}
+
+
+# Get all ticketers
+query GetAllTicketers($_eq: users_role_enum = ticketer) {
+  users(where: {role: {_eq: $_eq}}) {
+    id
+    username
+    first_name
+    last_name
+    phone_number
+    is_active
+    buses {
+      licence_number
+    }
+  }
+}
+
+
+# Get all operators
+query GetAllOperators($_eq: users_role_enum = operator) {
+  users(where: {role: {_eq: $_eq}}) {
+    id
+    username
+    first_name
+    last_name
+    phone_number
+    is_active
+    buses {
+      licence_number
+    }
+  }
+}
+
+
+# Get All Organizations
+query GetAllOrganizations {
+  organization {
+    id
+    name
+    is_active
+    phone_number
+    email
+    address
+    buses_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+
+# Get all travellers info for admin
+query TravellersInfoForAdmin {
+  ticket {
+    id
+    code
+    status
+    passengers {
+      first_name
+      last_name
+      phone_number
+    }
+    trip_info {
+      arrival_time
+      departure_time
+      organization_info{
+        name
+      }
+      route_info {
+        from_address_info {
+          name
+        }
+        to_address_info {
+          name
+        }
+      }
+    }
+    payment_histories {
+      method
+    }
+    pickup_tickets{
+      pickup_location
+    }
+  }
+}
+
+
+# Get All Routes
+query GetAllRoutes {
+  route{
+    id
+    from_address_info{
+      name
+    }
+    to_address_info{
+      name
+    }
+    price
+    distance
+  }
+
 }
