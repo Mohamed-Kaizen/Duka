@@ -42,6 +42,15 @@ actions:
   definition:
     kind: synchronous
     handler: http://auth:8000/create-operator
+- name: create_ticket
+  definition:
+    kind: synchronous
+    handler: http://core:8003/create-ticket
+    forward_client_headers: true
+  permissions:
+  - role: operator
+  - role: ticketer
+  - role: user
 - name: create_ticketer
   definition:
     kind: synchronous
@@ -111,6 +120,29 @@ custom_types:
     - description: null
       is_deprecated: null
       value: F
+  - name: TicketPaymentMethod
+    values:
+    - description: null
+      is_deprecated: null
+      value: CBE_Branch
+    - description: null
+      is_deprecated: null
+      value: CBE_Birr
+    - description: null
+      is_deprecated: null
+      value: Cash
+    - description: null
+      is_deprecated: null
+      value: Awash_Branch
+    - description: null
+      is_deprecated: null
+      value: Nib_Branch
+    - description: null
+      is_deprecated: null
+      value: Abyssinia_branch
+    - description: null
+      is_deprecated: null
+      value: Telebirr
   input_objects:
   - name: SignupInput
   - name: SignInInput
@@ -124,6 +156,8 @@ custom_types:
   - name: CreateDriverInput
   - name: CreateTicketerInput
   - name: CreateOperatorInput
+  - name: TicketPassenger
+  - name: CreateTicketInput
   objects:
   - name: SignupOutput
   - name: SignInOutput
@@ -141,4 +175,5 @@ custom_types:
   - name: CreateDriverOutput
   - name: CreateTicketerOutput
   - name: CreateOperatorOutput
+  - name: CreateTicketOutput
   scalars: []

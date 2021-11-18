@@ -39,6 +39,12 @@ type Mutation {
 }
 
 type Mutation {
+  create_ticket(
+    data: CreateTicketInput!
+  ): CreateTicketOutput
+}
+
+type Mutation {
   create_ticketer(
     data: CreateTicketerInput!
   ): CreateTicketerOutput
@@ -89,6 +95,16 @@ type Mutation {
 enum Gender {
   M
   F
+}
+
+enum TicketPaymentMethod {
+  CBE_Branch
+  CBE_Birr
+  Cash
+  Awash_Branch
+  Nib_Branch
+  Abyssinia_branch
+  Telebirr
 }
 
 input SignupInput {
@@ -182,6 +198,21 @@ input CreateOperatorInput {
   gender: Gender!
 }
 
+input TicketPassenger {
+  first_name: String!
+  last_name: String!
+  email: String
+  phone_number: String!
+  gender: Gender!
+}
+
+input CreateTicketInput {
+  trip_bus: uuid!
+  trip_bus_seat: [uuid!]!
+  passengers: [TicketPassenger!]!
+  payment_method: TicketPaymentMethod!
+}
+
 type SignupOutput {
   detail: String!
 }
@@ -245,6 +276,10 @@ type CreateTicketerOutput {
 }
 
 type CreateOperatorOutput {
+  detail: String!
+}
+
+type CreateTicketOutput {
   detail: String!
 }
 
